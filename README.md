@@ -3,7 +3,7 @@
 [![GitHub main workflow](https://img.shields.io/github/actions/workflow/status/dmotte/smartchg/main.yml?branch=main&logo=github&label=main&style=flat-square)](https://github.com/dmotte/smartchg/actions)
 [![PyPI](https://img.shields.io/pypi/v/smartchg?logo=python&style=flat-square)](https://pypi.org/project/smartchg/)
 
-:snake: DCA-based asset **exchange algorithm**.
+:snake: DCA-based **asset exchange algorithm**.
 
 ## Installation
 

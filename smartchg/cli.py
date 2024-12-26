@@ -24,6 +24,13 @@ def main(argv=None):
                         '(default: -)')
 
     # TODO flags
+    # - today
+    # - lookbehind
+    #
+    # - apy
+    # - multiplier
+    # - rate
+    # - target
 
     args = parser.parse_args(argv[1:])
 

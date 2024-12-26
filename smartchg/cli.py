@@ -18,10 +18,14 @@ def main(argv=None):
                         nargs='?', default='-',
                         help='Input file. If set to "-" then stdin is used '
                         '(default: -)')
-    parser.add_argument('file_out', metavar='FILE_OUT', type=str,
+    parser.add_argument('file_out_data', metavar='FILE_OUT_DATA', type=str,
                         nargs='?', default='-',
-                        help='Output file. If set to "-" then stdout is used '
-                        '(default: -)')
+                        help='Output file for the CSV data. If set '
+                        'to "-" then stdout is used (default: -)')
+    parser.add_argument('file_out_values', metavar='FILE_OUT_VALUES', type=str,
+                        nargs='?', default='-',
+                        help='Output file for the computed values. If set '
+                        'to "-" then stdout is used (default: -)')
 
     # TODO flags
     # - today
@@ -39,8 +43,12 @@ def main(argv=None):
     with ExitStack() as stack:
         file_in = (sys.stdin if args.file_in == '-'
                    else stack.enter_context(open(args.file_in, 'r')))
-        file_out = (sys.stdout if args.file_out == '-'
-                    else stack.enter_context(open(args.file_out, 'w')))
+        file_out_data = (sys.stdout if args.file_out_data == '-'
+                         else stack.enter_context(
+                             open(args.file_out_data, 'w')))
+        file_out_values = (sys.stdout if args.file_out_values == '-'
+                           else stack.enter_context(
+                               open(args.file_out_values, 'w')))
 
         # TODO
 

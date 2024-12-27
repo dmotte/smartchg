@@ -30,8 +30,6 @@ venv/bin/python3 -mpip install -r requirements.txt
 
 Now we need to **fetch data** related to some asset. To do that, we can use https://github.com/dmotte/misc/blob/main/python-scripts/ohlcv-fetchers/yahoo-finance.py.
 
-TODO if needed (please check), note here that more than 1 year of data is needed
-
 > **Note**: in the following commands, replace the local path of the `invoke.sh` script with the correct one.
 
 ```bash

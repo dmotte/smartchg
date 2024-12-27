@@ -5,6 +5,7 @@ import csv
 import sys
 
 from contextlib import ExitStack
+from datetime import date
 from datetime import datetime as dt
 from typing import TextIO
 
@@ -80,7 +81,11 @@ def save_values(data: dict, file: TextIO, fmt_rate: str = '',
         print(f'{k}={f(data[k])}', file=file)
 
 
-def compute_stuff():
+def compute_stuff(data: list[dict], today: date, lookbehind: int,
+                  apy: float, multiplier: float, rate: float, target: float):
+    '''
+    Computes the output data with statistics and the output values
+    '''
     pass  # TODO
 
 
@@ -116,7 +121,11 @@ def main(argv=None):
     # - rate
     # - target
     #
-    # - fmt-...
+    # - fmt-days
+    # - fmt-rate
+    # - fmt-simil
+    # - fmt-src
+    # - fmt-dst
 
     args = parser.parse_args(argv[1:])
 

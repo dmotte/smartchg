@@ -25,6 +25,54 @@ def load_data(file: TextIO, krate: str = 'Open'):
         }
 
 
+def save_data(data: list[dict], file: TextIO, fmt_days: str = '',
+              fmt_rate: str = '', fmt_simil: str = ''):
+    '''
+    Saves data into a CSV file
+    '''
+    func_days = str if fmt_days == '' else lambda x: fmt_days.format(x)
+    func_rate = str if fmt_rate == '' else lambda x: fmt_rate.format(x)
+    func_simil = str if fmt_simil == '' else lambda x: fmt_simil.format(x)
+
+    fields = {
+        'date': str,
+        'days': func_days,
+
+        'rate': func_rate,
+        'pred': func_rate,
+        'offset': func_rate,
+
+        'upper': func_rate,
+        'lower': func_rate,
+        'center': func_rate,
+
+        'simil': func_simil,
+    }
+
+    print(','.join(fields.keys()), file=file)
+    for x in data:
+        print(','.join(f(x[k]) for k, f in fields.items()), file=file)
+
+
+def save_values(data: dict, file: TextIO, fmt_rate: str = '',
+                fmt_src: str = '', fmt_dst: str = ''):
+    pass  # TODO
+    # - date_start (str)
+    # - date_end (str)
+    #
+    # - offset_mean (fmt_rate)
+    # - offset_stdev (fmt_rate)
+    # - offset_upper (fmt_rate)
+    # - offset_lower (fmt_rate)
+    #
+    # - sugg_src (fmt_src)
+    # - sugg_dst (fmt_dst)
+
+
+def compute_stuff():
+    pass  # TODO
+
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv

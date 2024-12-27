@@ -5,7 +5,7 @@ import textwrap
 
 from datetime import date
 
-from smartchg import load_data
+from smartchg import load_data, save_data, save_values, compute_stuff
 
 
 def test_load_data():
@@ -37,5 +37,9 @@ def test_save_data():
     pass  # TODO
 
 
-def test_compute_stats():
+def test_save_values():
+    pass  # TODO
+
+
+def test_compute_stuff():
     pass  # TODO

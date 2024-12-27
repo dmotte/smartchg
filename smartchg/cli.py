@@ -67,7 +67,7 @@ def save_values(data: dict, file: TextIO, fmt_rate: str = '',
     func_dst = str if fmt_dst == '' else lambda x: fmt_dst.format(x)
 
     fields = {
-        'date_start': str,
+        'date_thresh': str,
 
         'offset_mean': func_rate,
         'offset_stdev': func_rate,
@@ -88,11 +88,11 @@ def compute_stuff(data: list[dict], today: date, lookbehind: int,
     '''
     Computes the output data with statistics and the output values
     '''
-    # - values['date_start']: date at which the data can start
+    # - values['date_thresh']: minimum date at which the data can start
 
-    date_start = today - timedelta(days=lookbehind)
+    date_thresh = today - timedelta(days=lookbehind)
     data = [x.copy() for x in data
-            if x['date'] >= date_start and x['date'] < today]
+            if x['date'] >= date_thresh and x['date'] < today]
 
     first = data[0]
 
@@ -149,7 +149,7 @@ def compute_stuff(data: list[dict], today: date, lookbehind: int,
     sugg_dst = sugg_src / rate
 
     values = {
-        'date_start': date_start,
+        'date_thresh': date_thresh,
 
         'offset_mean': offset_mean,
         'offset_stdev': offset_stdev,

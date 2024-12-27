@@ -2,11 +2,13 @@
 
 import argparse
 import csv
+import statistics
 import sys
 
 from contextlib import ExitStack
 from datetime import date
 from datetime import datetime as dt
+from datetime import timedelta
 from typing import TextIO
 
 
@@ -66,7 +68,6 @@ def save_values(data: dict, file: TextIO, fmt_rate: str = '',
 
     fields = {
         'date_start': str,
-        'date_end': str,
 
         'offset_mean': func_rate,
         'offset_stdev': func_rate,
@@ -82,11 +83,84 @@ def save_values(data: dict, file: TextIO, fmt_rate: str = '',
 
 
 def compute_stuff(data: list[dict], today: date, lookbehind: int,
-                  apy: float, multiplier: float, rate: float, target: float):
+                  apy: float, multiplier: float, rate: float,
+                  target: float) -> tuple[list[dict], dict]:
     '''
     Computes the output data with statistics and the output values
     '''
-    pass  # TODO
+    # - values['date_start']: date at which the data can start
+
+    date_start = today - timedelta(days=lookbehind)
+    data = [x.copy() for x in data
+            if x['date'] >= date_start and x['date'] < today]
+
+    first = data[0]
+
+    current = {'date': today, 'rate': rate}
+    data.append(current)
+
+    for entry in data:
+        # - entry['days']: days passed since the first entry
+        # - entry['pred']: rate prediction calculated using the expected APY
+        # - entry['offset']: difference between the actual rate and pred
+
+        entry['days'] = (entry['date'] - first['date']
+                         ).total_seconds() / 60 / 60 / 24
+        entry['pred'] = first['rate'] * (1 + apy) ** (entry['days'] / 365)
+        entry['offset'] = entry['rate'] - entry['pred']
+
+    # - values['offset_mean']: mean of all the past (data[:-1]) offsets
+    # - values['offset_stdev']: Standard Deviation of all the past (data[:-1])
+    #   offsets (which also equals to the stdev of all the past rate values)
+
+    offset_mean = statistics.mean(x['offset'] for x in data[:-1])
+    offset_stdev = statistics.stdev(x['offset'] for x in data[:-1])
+
+    # - values['offset_upper']: upper "pseudo-bollinger" of the offset values
+    # - values['offset_lower']: lower "pseudo-bollinger" of the offset values
+
+    # Inspired by this article:
+    # https://www.learnpythonwithrune.org/pandas-calculate-and-plot-the-bollinger-bands-for-a-stock/
+
+    offset_upper = offset_mean + 2 * offset_stdev
+    offset_lower = offset_mean - 2 * offset_stdev
+
+    for entry in data:
+        # - entry['upper']: upper "pseudo-bollinger" for the rate value
+        # - entry['lower']: lower "pseudo-bollinger" for the rate value
+        # - entry['center']: center between the two "pseudo-bollinger" values
+        # - entry['simil']: how much entry['offset'] and offset_mean are
+        #   similar. For example:
+        #   - if entry['offset'] == offset_mean then --> simil = 0
+        #   - if entry['offset'] == offset_upper then --> simil = 1
+        #   - if entry['offset'] == offset_lower then --> simil = -1
+
+        entry['upper'] = entry['pred'] + offset_upper
+        entry['lower'] = entry['pred'] + offset_lower
+        entry['center'] = entry['pred'] + offset_mean
+        entry['simil'] = (entry['offset'] - offset_mean) / (2 * offset_stdev)
+
+    # - values['sugg_src']: suggested amount of SRC to be exchanged for DST
+    # - values['sugg_dst']: suggested amount of DST to be bought with SRC
+
+    # These values are higher when DST/SRC is low
+
+    sugg_src = target * (1 - current['simil'] * multiplier)
+    sugg_dst = sugg_src / rate
+
+    values = {
+        'date_start': date_start,
+
+        'offset_mean': offset_mean,
+        'offset_stdev': offset_stdev,
+        'offset_upper': offset_upper,
+        'offset_lower': offset_lower,
+
+        'sugg_src': sugg_src,
+        'sugg_dst': sugg_dst,
+    }
+
+    return data, values
 
 
 def main(argv=None):

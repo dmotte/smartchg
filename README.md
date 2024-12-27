@@ -40,6 +40,8 @@ TODO if needed (please check), note here that more than 1 year of data is needed
 
 TODO complete this part. You can take inspiration from apycalc
 
+> **Note**: each **output value** and **entry field** is described with a comment in the `compute_stuff` function's code. You can search for the strings `# - entry` and `# - values` in the [`smartchg/cli.py`](smartchg/cli.py) file to get an overview.
+
 For more details on how to use this command, you can also refer to its help message (`--help`).
 
 ## Development

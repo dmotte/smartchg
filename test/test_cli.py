@@ -108,7 +108,49 @@ def test_save_data():
 
 
 def test_save_values():
-    pass  # TODO
+    values = {
+        'date_thresh': date(2020, 8, 8),
+
+        'offset_mean': 1.3905680578542898,
+        'offset_stdev': 1.0707342960061585,
+        'offset_upper': 3.532036649866607,
+        'offset_lower': -0.7509005341580273,
+
+        'sugg_src': 857.5727674560864,
+        'sugg_dst': 6.860582139648691,
+    }
+
+    txt = textwrap.dedent('''\
+        date_thresh=2020-08-08
+        offset_mean=1.3905680578542898
+        offset_stdev=1.0707342960061585
+        offset_upper=3.532036649866607
+        offset_lower=-0.7509005341580273
+        sugg_src=857.5727674560864
+        sugg_dst=6.860582139648691
+    ''')
+
+    buf = io.StringIO()
+    save_values(values, buf)
+    buf.seek(0)
+
+    assert buf.read() == txt
+
+    txt = textwrap.dedent('''\
+        date_thresh=2020-08-08
+        offset_mean=1.39
+        offset_stdev=1.07
+        offset_upper=3.53
+        offset_lower=-0.75
+        sugg_src=857.573
+        sugg_dst=6.8606
+    ''')
+
+    buf = io.StringIO()
+    save_values(values, buf, '{:.2f}', '{:.3f}', '{:.4f}')
+    buf.seek(0)
+
+    assert buf.read() == txt
 
 
 def test_compute_stuff():

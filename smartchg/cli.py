@@ -1,9 +1,28 @@
 #!/usr/bin/env python3
 
 import argparse
+import csv
 import sys
 
 from contextlib import ExitStack
+from datetime import datetime as dt
+from typing import TextIO
+
+
+def load_data(file: TextIO, krate: str = 'Open'):
+    '''
+    Loads data from a CSV file.
+
+    Compatible with Yahoo Finance OHLCV CSV files, in particular
+    https://github.com/dmotte/misc/blob/main/python-scripts/ohlcv-fetchers/yahoo-finance.py
+    '''
+    data = list(csv.DictReader(file))
+
+    for x in data:
+        yield {
+            'date': dt.strptime(x['Date'], '%Y-%m-%d').date(),
+            'rate': float(x[krate]),
+        }
 
 
 def main(argv=None):

@@ -56,17 +56,28 @@ def save_data(data: list[dict], file: TextIO, fmt_days: str = '',
 
 def save_values(data: dict, file: TextIO, fmt_rate: str = '',
                 fmt_src: str = '', fmt_dst: str = ''):
-    pass  # TODO
-    # - date_start (str)
-    # - date_end (str)
-    #
-    # - offset_mean (fmt_rate)
-    # - offset_stdev (fmt_rate)
-    # - offset_upper (fmt_rate)
-    # - offset_lower (fmt_rate)
-    #
-    # - sugg_src (fmt_src)
-    # - sugg_dst (fmt_dst)
+    '''
+    Saves values into a text file
+    '''
+    func_rate = str if fmt_rate == '' else lambda x: fmt_rate.format(x)
+    func_src = str if fmt_src == '' else lambda x: fmt_src.format(x)
+    func_dst = str if fmt_dst == '' else lambda x: fmt_dst.format(x)
+
+    fields = {
+        'date_start': str,
+        'date_end': str,
+
+        'offset_mean': func_rate,
+        'offset_stdev': func_rate,
+        'offset_upper': func_rate,
+        'offset_lower': func_rate,
+
+        'sugg_src': func_src,
+        'sugg_dst': func_dst,
+    }
+
+    for k, f in fields.items():
+        print(f'{k}={f(data[k])}', file=file)
 
 
 def compute_stuff():

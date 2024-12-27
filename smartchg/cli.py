@@ -47,6 +47,8 @@ def main(argv=None):
                         'to "-" then stdout is used (default: -)')
 
     # TODO flags
+    # - krate
+    #
     # - today
     # - lookbehind
     #
@@ -54,6 +56,8 @@ def main(argv=None):
     # - multiplier
     # - rate
     # - target
+    #
+    # - fmt-...
 
     args = parser.parse_args(argv[1:])
 

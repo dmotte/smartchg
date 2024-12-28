@@ -36,11 +36,15 @@ Now we need to **fetch data** related to some asset. To do that, we can use http
 ~/git/misc/python-scripts/ohlcv-fetchers/invoke.sh yahoo-finance '^GSPC' -i1d -d2020-01-01T00Z -f'{:.6f}' > ohlcv-SPX500.csv
 ```
 
-TODO complete this part. You can take inspiration from apycalc
+TODO complete this part. You can take inspiration from `apycalc`. You can even extract the current rate from the CSV file with `tail + cut`
 
 > **Note**: each **output value** and **entry field** is described with a comment in the `compute_stuff` function's code. You can search for the strings `# - entry` and `# - values` in the [`smartchg/cli.py`](smartchg/cli.py) file to get an overview.
 
 For more details on how to use this command, you can also refer to its help message (`--help`).
+
+## Algorithm
+
+TODO describe the algorithm here using LaTeX formulas (with `$$ ... $$`)
 
 ## Development
 

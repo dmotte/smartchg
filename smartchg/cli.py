@@ -203,7 +203,6 @@ def main(argv=None):
     parser.add_argument('-m', '--multiplier', type=float, default=0.1,
                         help='Multiplier of the effect introduced by the '
                         'algorithm (default: 0.1)')
-    # TODO if rate==0, take today from the data
     parser.add_argument('-r', '--rate', type=float, default=100,
                         help='Current DST/SRC rate (default: 100)')
     parser.add_argument('-t', '--target', type=float, default=1000,

@@ -119,7 +119,7 @@ def compute_stuff(data: list[dict], today: date, lookbehind: int,
     # - values['offset_upper']: upper "pseudo-bollinger" of the offset values
     # - values['offset_lower']: lower "pseudo-bollinger" of the offset values
 
-    # Inspired by this article:
+    # The "pseudo-bollinger" calculation is inspired by this article:
     # https://www.learnpythonwithrune.org/pandas-calculate-and-plot-the-bollinger-bands-for-a-stock/
 
     offset_upper = offset_mean + 2 * offset_stdev
@@ -184,22 +184,46 @@ def main(argv=None):
                         help='Output file for the computed values. If set '
                         'to "-" then stdout is used (default: -)')
 
-    # TODO flags
-    # - krate
-    #
-    # - today
-    # - lookbehind
-    #
-    # - apy
-    # - multiplier
-    # - rate
-    # - target
-    #
-    # - fmt-days
-    # - fmt-rate
-    # - fmt-simil
-    # - fmt-src
-    # - fmt-dst
+    parser.add_argument('-k', '--krate', type=str, default='Open',
+                        help='Column name for the asset rate values '
+                        '(default: "Open")')
+
+    parser.add_argument('-T', '--today',
+                        type=lambda x: dt.strptime(x, '%Y-%m-%d').date(),
+                        default=dt.now().date(),
+                        help='Reference date of the current day, in YYYY-MM-DD '
+                        'format (default: current date in the local timezone)')
+    parser.add_argument('-l', '--lookbehind', type=int, default=365,
+                        help='Number of days in the past to consider to draw '
+                        'conclusions about the asset trend (default: 365)')
+
+    parser.add_argument('-a', '--apy', type=float, default=0,
+                        help='Expected APY (over 365 days) of the DST/SRC rate '
+                        '(default: 0)')
+    parser.add_argument('-m', '--multiplier', type=float, default=0.1,
+                        help='Multiplier of the effect introduced by the '
+                        'algorithm (default: 0.1)')
+    # TODO if rate==0, take today from the data
+    parser.add_argument('-r', '--rate', type=float, default=100,
+                        help='Current DST/SRC rate (default: 100)')
+    parser.add_argument('-t', '--target', type=float, default=1000,
+                        help='Target SRC amount (default: 1000)')
+
+    parser.add_argument('--fmt-days', type=str, default='',
+                        help='If specified, formats the days values with this '
+                        'format string (e.g. "{:.2f}")')
+    parser.add_argument('--fmt-rate', type=str, default='',
+                        help='If specified, formats the rate values with this '
+                        'format string (e.g. "{:.6f}")')
+    parser.add_argument('--fmt-simil', type=str, default='',
+                        help='If specified, formats the simil values with this '
+                        'format string (e.g. "{:.6f}")')
+    parser.add_argument('--fmt-src', type=str, default='',
+                        help='If specified, formats the SRC values with this '
+                        'format string (e.g. "{:.2f}")')
+    parser.add_argument('--fmt-dst', type=str, default='',
+                        help='If specified, formats the DST values with this '
+                        'format string (e.g. "{:.4f}")')
 
     args = parser.parse_args(argv[1:])
 

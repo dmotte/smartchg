@@ -3,6 +3,8 @@
 import io
 import textwrap
 
+import pytest
+
 from datetime import date
 
 from smartchg import load_data, save_data, save_values, compute_stuff
@@ -214,3 +216,7 @@ def test_compute_stuff():
     assert data_in == data_in_copy
     assert data_out == data_out_expected
     assert values_out == values_out_expected
+
+    with pytest.raises(ValueError) as exc_info:
+        compute_stuff([], date(2020, 1, 1), 365, 0, 0.10, 0, 1000)
+    assert exc_info.value.args == ('The rate value must be > 0',)

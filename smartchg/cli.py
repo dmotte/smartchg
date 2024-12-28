@@ -88,6 +88,9 @@ def compute_stuff(data: list[dict], today: date, lookbehind: int,
     '''
     Computes the output data with statistics and the output values
     '''
+    if rate <= 0:
+        raise ValueError('The rate value must be > 0')
+
     # - values['date_thresh']: minimum date at which the data can start
 
     date_thresh = today - timedelta(days=lookbehind)

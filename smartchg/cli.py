@@ -241,6 +241,13 @@ def main(argv=None):
                            else stack.enter_context(
                                open(args.file_out_values, 'w')))
 
-        # TODO
+        data_in = load_data(file_in, args.krate)
+        data_out, values_out = compute_stuff(
+            data_in, args.today, args.lookbehind,
+            args.apy, args.multiplier, args.rate, args.target)
+        save_data(data_out, file_out_data,
+                  args.fmt_days, args.fmt_rate, args.fmt_simil)
+        save_values(values_out, file_out_values,
+                    args.rate, args.fmt_src, args.fmt_dst)
 
     return 0

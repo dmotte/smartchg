@@ -78,6 +78,8 @@ def main(argv=None):
         data = list(load_data(file_in_data))
         values = load_values(file_in_values)
 
+    latest_date = data[-1]['date']
+
     if args.plot_rate:
         fig = px.line(
             data,
@@ -88,7 +90,7 @@ def main(argv=None):
         )
         fig.add_vline(
             annotation_text='today',
-            x=dt.combine(data[-1]['date'], dt.min.time()).timestamp() * 1000,
+            x=dt.combine(latest_date, dt.min.time()).timestamp() * 1000,
             line_color='#0cc',
         )
         fig.show()
@@ -118,7 +120,7 @@ def main(argv=None):
         )
         fig.add_vline(
             annotation_text='today',
-            x=dt.combine(data[-1]['date'], dt.min.time()).timestamp() * 1000,
+            x=dt.combine(latest_date, dt.min.time()).timestamp() * 1000,
             line_color='#0cc',
         )
         fig.show()
@@ -148,7 +150,7 @@ def main(argv=None):
         )
         fig.add_vline(
             annotation_text='today',
-            x=dt.combine(data[-1]['date'], dt.min.time()).timestamp() * 1000,
+            x=dt.combine(latest_date, dt.min.time()).timestamp() * 1000,
             line_color='#0cc',
         )
         fig.show()

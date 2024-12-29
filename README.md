@@ -40,7 +40,8 @@ Now that we have the data, we can **compute the output data and values**:
 
 ```bash
 rate=$(tail -1 ohlcv-SPX500.csv | cut -d, -f6)
-python3 -msmartchg -a.15 -r"$rate" -t1000 --fmt-src='{:.2f}' --fmt-dst='{:.4f}' --fmt-{rate,simil}='{:.6f}' ohlcv-SPX500.csv smartchg-SPX500.csv
+python3 -msmartchg -a.15 -r"$rate" -t1000 --fmt-src='{:.2f}' --fmt-dst='{:.4f}' --fmt-{rate,simil}='{:.6f}' {ohlcv,smartchg,values}-SPX500.csv
+grep '^sugg_' values-SPX500.csv
 ```
 
 > **Note**: each **output value** and **entry field** is described with a comment in the `compute_stuff` function's code. You can search for the strings `# - entry` and `# - values` in the [`smartchg/cli.py`](smartchg/cli.py) file to get an overview.
@@ -48,7 +49,7 @@ python3 -msmartchg -a.15 -r"$rate" -t1000 --fmt-src='{:.2f}' --fmt-dst='{:.4f}' 
 And finally display some nice **plots** using the [`plots.py`](example/plots.py) script (which uses the [_Plotly_](https://github.com/plotly/plotly.py) Python library):
 
 ```bash
-venv/bin/python3 plots.py -TODO smartchg-SPX500.csv
+venv/bin/python3 plots.py -ros {smartchg,values}-SPX500.csv
 ```
 
 For more details on how to use this command, you can also refer to its help message (`--help`).

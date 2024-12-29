@@ -23,6 +23,15 @@ def load_data(file: TextIO):
                                       'upper', 'lower', 'center', 'simil']}
 
 
+def load_values(file: TextIO) -> dict:
+    '''
+    Loads values from a text file
+    '''
+    return {k: v
+            for line in file
+            for k, v in [line.strip().split('=', 1)]}
+
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
@@ -31,10 +40,14 @@ def main(argv=None):
         description='Generate plots based on data computed with smartchg'
     )
 
-    parser.add_argument('file_in', metavar='FILE_IN', type=str,
+    parser.add_argument('file_in_data', metavar='FILE_IN_DATA', type=str,
                         nargs='?', default='-',
-                        help='Input file. If set to "-" then stdin is used '
-                        '(default: -)')
+                        help='Input file with the CSV data. If set '
+                        'to "-" then stdin is used (default: -)')
+    parser.add_argument('file_in_values', metavar='FILE_IN_VALUES', type=str,
+                        nargs='?', default='-',
+                        help='Input file with the computed values. If set '
+                        'to "-" then stdin is used (default: -)')
 
     parser.add_argument('-r', '--plot-rate', action='store_true',
                         help='Generate plot based on rate values')
@@ -48,9 +61,14 @@ def main(argv=None):
     ############################################################################
 
     with ExitStack() as stack:
-        file_in = (sys.stdin if args.file_in == '-'
-                   else stack.enter_context(open(args.file_in, 'r')))
-        data = list(load_data(file_in))
+        file_in_data = (sys.stdin if args.file_in_data == '-'
+                        else stack.enter_context(
+                            open(args.file_in_data, 'r')))
+        file_in_values = (sys.stdin if args.file_in_values == '-'
+                          else stack.enter_context(
+                              open(args.file_in_values, 'r')))
+        data = list(load_data(file_in_data))
+        values = load_values(file_in_values)
 
     if args.plot_rate:
         fig = px.line(

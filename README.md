@@ -64,6 +64,8 @@ The algorithm is based on the assumption that one **need to exchange** some amou
 
 This algorithm tries to **optimize the quantity** of assets to be exchanged based on the **trend** of the historical **exchange rate** values, in order to determine whether the current exchange rate is **convenient** (and therefore we should exchange **more**) or **unconvenient** (and therefore we should exchange **less**). In one simple sentence, the motto is: [_"Buy more when low!"_](https://www.investopedia.com/ask/answers/04/052704.asp)
 
+> **Note**: the following explanation is for illustration purposes only. Please refer to the [Python code](smartchg/cli.py) for any details.
+
 | Symbol     | Variable          |
 | ---------- | ----------------- |
 | $a$        | `apy`             |

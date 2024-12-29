@@ -5,6 +5,8 @@
 
 :snake: DCA-based **asset exchange algorithm**.
 
+Inspired by **PAC** (_Pre-Authorized Contribution_ plan) and [Smart PAC](https://www.youtube.com/watch?v=kSThDk39pjU).
+
 ## Installation
 
 This utility is available as a Python package on **PyPI**:
@@ -27,6 +29,8 @@ We need a Python **virtual environment** ("venv") with some packages to do the d
 python3 -mvenv venv
 venv/bin/python3 -mpip install -r requirements.txt
 ```
+
+> **Note**: we refer to the **source asset** with the **generic ticker symbol** `SRC`, and to the **destination asset** with `DST`.
 
 Now we need to **fetch data** related to some asset. To do that, we can use https://github.com/dmotte/misc/blob/main/python-scripts/ohlcv-fetchers/yahoo-finance.py.
 
@@ -56,7 +60,9 @@ For more details on how to use this command, you can also refer to its help mess
 
 ## Algorithm
 
-TODO describe the algorithm here using LaTeX formulas (with `$$ ... $$`)
+The algorithm is based on the assumption that one **need to exchange** some amount of one asset (e.g. `EUR`) for another asset (e.g. `SPX500`) **regularly** (e.g. once a month, every month). Also, they cannot decide **when** to make the exchange (e.g. always on the same day of the month). Therefore, the only controllable variable is "**how much**" to exchange, that is, the quantity of assets to be exchanged.
+
+This algorithm tries to **optimize the quantity** of assets to be exchanged based on the **trend** of the historical **exchange rate** values, in order to determine whether the current exchange rate is **convenient** (and therefore we should exchange **more**) or **unconvenient** (and therefore we should exchange **less**). In one simple sentence, the motto is: [_"Buy more when low!"_](https://www.investopedia.com/ask/answers/04/052704.asp)
 
 ## Development
 

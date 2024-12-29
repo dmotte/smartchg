@@ -132,8 +132,8 @@ def compute_stuff(data: list[dict], today: date, lookbehind: int,
         # - entry['upper']: upper "pseudo-bollinger" for the rate value
         # - entry['lower']: lower "pseudo-bollinger" for the rate value
         # - entry['center']: center between the two "pseudo-bollinger" values
-        # - entry['simil']: how much entry['offset'] and offset_mean are
-        #   similar. For example:
+        # - entry['simil']: similarity between entry['offset'] and offset_mean.
+        #   For example:
         #   - if entry['offset'] == offset_mean then --> simil = 0
         #   - if entry['offset'] == offset_upper then --> simil = 1
         #   - if entry['offset'] == offset_lower then --> simil = -1

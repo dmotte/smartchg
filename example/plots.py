@@ -27,9 +27,17 @@ def load_values(file: TextIO) -> dict:
     '''
     Loads values from a text file
     '''
-    return {k: v
-            for line in file
-            for k, v in [line.strip().split('=', 1)]}
+    result = {}
+
+    for line in file:
+        k, v = line.strip().split('=', 1)
+
+        v = dt.strptime(v, '%Y-%m-%d').date() if k.startswith('date_') \
+            else float(v)
+
+        result[k] = v
+
+    return result
 
 
 def main(argv=None):

@@ -40,7 +40,7 @@ Now that we have the data, we can **compute the output data and values**:
 
 ```bash
 # TODO extract the current rate from the CSV file with tail + cut
-python3 -msmartchg -a.13 -r5123.45 -t1000 --fmt-{days,src}='{:.2f}' --fmt-dst='{:.4f}' --fmt-{rate,simil}='{:.6f}' ohlcv-SPX500.csv smartchg-SPX500.csv
+python3 -msmartchg -a.13 -r5123.45 -t1000 --fmt-src='{:.2f}' --fmt-dst='{:.4f}' --fmt-{rate,simil}='{:.6f}' ohlcv-SPX500.csv smartchg-SPX500.csv
 ```
 
 > **Note**: each **output value** and **entry field** is described with a comment in the `compute_stuff` function's code. You can search for the strings `# - entry` and `# - values` in the [`smartchg/cli.py`](smartchg/cli.py) file to get an overview.

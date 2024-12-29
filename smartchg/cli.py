@@ -248,6 +248,6 @@ def main(argv=None):
         save_data(data_out, file_out_data,
                   args.fmt_days, args.fmt_rate, args.fmt_simil)
         save_values(values_out, file_out_values,
-                    args.rate, args.fmt_src, args.fmt_dst)
+                    args.fmt_rate, args.fmt_src, args.fmt_dst)
 
     return 0

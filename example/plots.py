@@ -102,17 +102,17 @@ def main(argv=None):
             title='Offset values',
         )
         fig.add_hline(
-            annotation_text='offset_mean',
+            annotation_text='mean',
             y=values['offset_mean'],
             line_color='#cc0',
         )
         fig.add_hline(
-            annotation_text='offset_upper',
+            annotation_text='upper',
             y=values['offset_upper'],
             line_color='#0c0',
         )
         fig.add_hline(
-            annotation_text='offset_lower',
+            annotation_text='lower',
             y=values['offset_lower'],
             line_color='#c00',
         )
@@ -124,7 +124,33 @@ def main(argv=None):
         fig.show()
 
     if args.plot_simil:
-        pass  # TODO
+        fig = px.line(
+            data,
+            x='date',
+            y='simil',
+            template='plotly_dark',
+            title='Similarity values',
+        )
+        fig.add_hline(
+            annotation_text='mean',
+            y=0,
+            line_color='#cc0',
+        )
+        fig.add_hline(
+            annotation_text='upper',
+            y=1,
+            line_color='#0c0',
+        )
+        fig.add_hline(
+            annotation_text='lower',
+            y=-1,
+            line_color='#c00',
+        )
+        fig.add_vline(
+            annotation_text='today',
+            x=dt.combine(data[-1]['date'], dt.min.time()).timestamp() * 1000,
+            line_color='#0cc',
+        )
         fig.show()
 
     return 0

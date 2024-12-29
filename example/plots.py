@@ -94,7 +94,33 @@ def main(argv=None):
         fig.show()
 
     if args.plot_offset:
-        pass  # TODO
+        fig = px.line(
+            data,
+            x='date',
+            y='offset',
+            template='plotly_dark',
+            title='Offset values',
+        )
+        fig.add_hline(
+            annotation_text='offset_mean',
+            y=values['offset_mean'],
+            line_color='#cc0',
+        )
+        fig.add_hline(
+            annotation_text='offset_upper',
+            y=values['offset_upper'],
+            line_color='#0c0',
+        )
+        fig.add_hline(
+            annotation_text='offset_lower',
+            y=values['offset_lower'],
+            line_color='#c00',
+        )
+        fig.add_vline(
+            annotation_text='today',
+            x=dt.combine(data[-1]['date'], dt.min.time()).timestamp() * 1000,
+            line_color='#0cc',
+        )
         fig.show()
 
     if args.plot_simil:

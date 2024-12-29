@@ -64,6 +64,49 @@ The algorithm is based on the assumption that one **need to exchange** some amou
 
 This algorithm tries to **optimize the quantity** of assets to be exchanged based on the **trend** of the historical **exchange rate** values, in order to determine whether the current exchange rate is **convenient** (and therefore we should exchange **more**) or **unconvenient** (and therefore we should exchange **less**). In one simple sentence, the motto is: [_"Buy more when low!"_](https://www.investopedia.com/ask/answers/04/052704.asp)
 
+| Symbol     | Variable          |
+| ---------- | ----------------- |
+| $a$        | `apy`             |
+| $m$        | `multiplier`      |
+| $t$        | `target`          |
+| $n$        | `len(data)`       |
+| $d_i$      | `entry['days']`   |
+| $r_i$      | `entry['rate']`   |
+| $p_i$      | `entry['pred']`   |
+| $\delta_i$ | `entry['offset']` |
+| $s_i$      | `entry['simil']`  |
+| $S$        | `sugg_src`        |
+
+First of all, we need to calculate the exchange rate **prediction** and **offset**:
+
+$$
+    p_i = r_1 (1 + a)^{d_i/365}
+    \quad \quad
+    \delta_i = r_i - p_i
+$$
+
+Then we need the **mean** and **standard deviation** of the offset values:
+
+$$
+    \mu_\delta = \frac{1}{n} \sum_{i=1}^{n} \delta_i
+    \quad \quad
+    \sigma_\delta = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} \left( \delta_i - \mu_\delta \right) ^ 2}
+$$
+
+The **similarity** values are calculated using the following formula:
+
+$$
+    s_i = \frac{\delta_i - \mu_\delta}{2 \sigma_\delta}
+$$
+
+Finally, we need to compute the **suggested `SRC` amount**, taking the **multiplier** value into account:
+
+$$ S = t (1 - s_n m) $$
+
+For example, if $t=500$, $s_n=-1$, and $m=0.10$, we have:
+
+$$ S = 500 \cdot (1 - (-1) \cdot 0.10) = 500 \cdot 1.1 = 550 $$
+
 ## Development
 
 If you want to contribute to this project, you can install the package in **editable** mode:

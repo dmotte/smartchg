@@ -12,7 +12,7 @@ Inspired by **PAC** (_Pre-Authorized Contribution_ plan) and [Smart PAC](https:/
 This utility is available as a Python package on **PyPI**:
 
 ```bash
-pip3 install smartchg
+python3 -mpip install smartchg
 ```
 
 ## Usage
@@ -114,7 +114,7 @@ $$ S = 500 \cdot (1 - (-1) \cdot 0.10) = 500 \cdot 1.1 = 550 $$
 If you want to contribute to this project, you can install the package in **editable** mode:
 
 ```bash
-pip3 install -e . --user
+python3 -mpip install -e . --user
 ```
 
 This will just link the package to the original location, basically meaning any changes to the original package would reflect directly in your environment ([source](https://stackoverflow.com/a/35064498)).
@@ -122,5 +122,5 @@ This will just link the package to the original location, basically meaning any 
 If you want to run the tests, you'll have to install the `pytest` package and then run:
 
 ```bash
-pytest test
+python3 -mpytest test
 ```

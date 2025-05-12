@@ -51,11 +51,11 @@ def main(argv=None):
     parser.add_argument('file_in_data', metavar='FILE_IN_DATA', type=str,
                         nargs='?', default='-',
                         help='Input file with the CSV data. If set '
-                        'to "-" then stdin is used (default: -)')
+                        'to "-" then stdin is used (default: %(default)s)')
     parser.add_argument('file_in_values', metavar='FILE_IN_VALUES', type=str,
                         nargs='?', default='-',
                         help='Input file with the computed values. If set '
-                        'to "-" then stdin is used (default: -)')
+                        'to "-" then stdin is used (default: %(default)s)')
 
     parser.add_argument('-r', '--plot-rate', action='store_true',
                         help='Generate plot based on rate values')

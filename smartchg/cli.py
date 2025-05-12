@@ -177,19 +177,19 @@ def main(argv=None):
     parser.add_argument('file_in', metavar='FILE_IN', type=str,
                         nargs='?', default='-',
                         help='Input file. If set to "-" then stdin is used '
-                        '(default: -)')
+                        '(default: %(default)s)')
     parser.add_argument('file_out_data', metavar='FILE_OUT_DATA', type=str,
                         nargs='?', default='-',
                         help='Output file for the CSV data. If set '
-                        'to "-" then stdout is used (default: -)')
+                        'to "-" then stdout is used (default: %(default)s)')
     parser.add_argument('file_out_values', metavar='FILE_OUT_VALUES', type=str,
                         nargs='?', default='-',
                         help='Output file for the computed values. If set '
-                        'to "-" then stdout is used (default: -)')
+                        'to "-" then stdout is used (default: %(default)s)')
 
     parser.add_argument('-k', '--krate', type=str, default='Open',
                         help='Column name for the asset rate values '
-                        '(default: "Open")')
+                        '(default: %(default)s)')
 
     parser.add_argument('-T', '--today',
                         type=lambda x: dt.strptime(x, '%Y-%m-%d').date(),
@@ -198,18 +198,19 @@ def main(argv=None):
                         'format (default: current date in the local timezone)')
     parser.add_argument('-l', '--lookbehind', type=int, default=365,
                         help='Number of days in the past to consider to draw '
-                        'conclusions about the asset trend (default: 365)')
+                        'conclusions about the asset trend (default: '
+                        '%(default)s)')
 
     parser.add_argument('-a', '--apy', type=float, default=0,
                         help='Expected APY (over 365 days) of the DST/SRC rate '
-                        '(default: 0)')
+                        '(default: %(default)s)')
     parser.add_argument('-m', '--multiplier', type=float, default=0.1,
                         help='Multiplier of the effect introduced by the '
-                        'algorithm (default: 0.1)')
+                        'algorithm (default: %(default)s)')
     parser.add_argument('-r', '--rate', type=float, default=100,
-                        help='Current DST/SRC rate (default: 100)')
+                        help='Current DST/SRC rate (default: %(default)s)')
     parser.add_argument('-t', '--target', type=float, default=1000,
-                        help='Target SRC amount (default: 1000)')
+                        help='Target SRC amount (default: %(default)s)')
 
     parser.add_argument('--fmt-days', type=str, default='',
                         help='If specified, formats the days values with this '

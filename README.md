@@ -43,7 +43,7 @@ Now we need to **fetch data** related to some asset. To do that, we can use http
 Now that we have the data, we can **compute the output data and values**:
 
 ```bash
-rate=$(tail -1 ohlcv-SPX500.csv | cut -d, -f6)
+rate=$(tail -n1 ohlcv-SPX500.csv | cut -d, -f6)
 python3 -msmartchg -a.15 -r"$rate" -t1000 --fmt-src='{:.2f}' --fmt-dst='{:.4f}' --fmt-{rate,simil}='{:.6f}' {ohlcv,smartchg,values}-SPX500.csv
 grep '^sugg_' values-SPX500.csv
 ```

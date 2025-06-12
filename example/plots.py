@@ -19,8 +19,8 @@ def load_data(file: TextIO):
 
     for x in data:
         yield {'date': dt.strptime(x['date'], '%Y-%m-%d').date()} | \
-            {k: float(x[k]) for k in ['days', 'rate', 'pred', 'offset',
-                                      'upper', 'lower', 'center', 'simil']}
+            {k: float(x[k]) for k in ('days', 'rate', 'pred', 'offset',
+                                      'upper', 'lower', 'center', 'simil')}
 
 
 def load_values(file: TextIO) -> dict:

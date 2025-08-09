@@ -4,14 +4,15 @@ import argparse
 import csv
 import sys
 
+from collections.abc import Iterator
 from contextlib import ExitStack
 from datetime import datetime as dt
-from typing import TextIO
+from typing import Any, TextIO
 
 import plotly.express as px
 
 
-def load_data(file: TextIO):
+def load_data(file: TextIO) -> Iterator[dict[str, Any]]:
     '''
     Loads data from a CSV file
     '''
@@ -40,7 +41,7 @@ def load_values(file: TextIO) -> dict:
     return result
 
 
-def main(argv=None):
+def main(argv: list[str] = None) -> int:
     if argv is None:
         argv = sys.argv
 

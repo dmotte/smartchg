@@ -10,7 +10,7 @@ from datetime import date
 from smartchg import load_data, save_data, save_values, compute_stuff
 
 
-def test_load_data():
+def test_load_data() -> None:
     csv = textwrap.dedent('''\
         Date,Open,High,Low,Close,Adj Close,Volume
         2000-01-01,10,15,9,12,12,123
@@ -35,7 +35,7 @@ def test_load_data():
     ]
 
 
-def test_save_data():
+def test_save_data() -> None:
     data = [
         {'date': date(2020, 8, 13), 'rate': 116.08,
          'days': 0, 'pred': 116.08, 'offset': 0,
@@ -115,7 +115,7 @@ def test_save_data():
     assert buf.read() == csv
 
 
-def test_save_values():
+def test_save_values() -> None:
     values = {
         'date_thresh': date(2020, 8, 8),
 
@@ -161,7 +161,7 @@ def test_save_values():
     assert buf.read() == txt
 
 
-def test_compute_stuff():
+def test_compute_stuff() -> None:
     data_in_orig = [
         {'date': date(2020, 1, 13), 'rate': 104.04},
         {'date': date(2020, 2, 13), 'rate': 103.50},

@@ -5,14 +5,15 @@ import csv
 import statistics
 import sys
 
+from collections.abc import Iterator
 from contextlib import ExitStack
 from datetime import date
 from datetime import datetime as dt
 from datetime import timedelta
-from typing import TextIO
+from typing import Any, TextIO
 
 
-def load_data(file: TextIO, krate: str = 'Open'):
+def load_data(file: TextIO, krate: str = 'Open') -> Iterator[dict[str, Any]]:
     '''
     Loads data from a CSV file.
 
@@ -29,7 +30,7 @@ def load_data(file: TextIO, krate: str = 'Open'):
 
 
 def save_data(data: list[dict], file: TextIO, fmt_days: str = '',
-              fmt_rate: str = '', fmt_simil: str = ''):
+              fmt_rate: str = '', fmt_simil: str = '') -> None:
     '''
     Saves data into a CSV file
     '''
@@ -58,7 +59,7 @@ def save_data(data: list[dict], file: TextIO, fmt_days: str = '',
 
 
 def save_values(data: dict, file: TextIO, fmt_rate: str = '',
-                fmt_src: str = '', fmt_dst: str = ''):
+                fmt_src: str = '', fmt_dst: str = '') -> None:
     '''
     Saves values into a text file
     '''
@@ -166,7 +167,7 @@ def compute_stuff(data: list[dict], today: date, lookbehind: int,
     return data, values
 
 
-def main(argv=None):
+def main(argv: list[str] = None) -> int:
     if argv is None:
         argv = sys.argv
 

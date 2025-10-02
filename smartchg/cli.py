@@ -167,7 +167,7 @@ def compute_stuff(data: list[dict], today: date, lookbehind: int,
     return data, values
 
 
-def main(argv: list[str] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
 

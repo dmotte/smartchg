@@ -41,7 +41,7 @@ def load_values(file: TextIO) -> dict:
     return result
 
 
-def main(argv: list[str] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
 

@@ -37,7 +37,7 @@ Now we need to **fetch data** related to some asset. To do that, we can use http
 > **Note**: in the following commands, replace the local path of the `invoke.sh` script with the correct one.
 
 ```bash
-~/git/misc/python-scripts/ohlcv-fetchers/invoke.sh yahoo-finance '^GSPC' -i1d -d2020-01-01T00Z -f'{:.6f}' > ohlcv-SPX500.csv
+bash ~/git/misc/python-scripts/ohlcv-fetchers/invoke.sh yahoo-finance '^GSPC' -i1d -d2020-01-01T00Z -f'{:.6f}' > ohlcv-SPX500.csv
 ```
 
 Now that we have the data, we can **compute the output data and values**:

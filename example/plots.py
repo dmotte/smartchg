@@ -87,7 +87,7 @@ def main(argv: list[str] | None = None) -> int:
             x='date',
             y=['rate', 'pred', 'upper', 'lower', 'center'],
             template='plotly_dark',
-            title='Rate values',
+            title=f'Rate values: {args.file_in_data}, {args.file_in_values}',
         )
         fig.add_vline(
             annotation_text='today',
@@ -102,7 +102,7 @@ def main(argv: list[str] | None = None) -> int:
             x='date',
             y='offset',
             template='plotly_dark',
-            title='Offset values',
+            title=f'Offset values: {args.file_in_data}, {args.file_in_values}',
         )
         fig.add_hline(
             annotation_text='mean',
@@ -132,7 +132,8 @@ def main(argv: list[str] | None = None) -> int:
             x='date',
             y='simil',
             template='plotly_dark',
-            title='Similarity values',
+            title='Similarity values: '
+            f'{args.file_in_data}, {args.file_in_values}',
         )
         fig.add_hline(
             annotation_text='mean',

@@ -219,11 +219,11 @@ def test_compute_stuff() -> None:
 
     data_in = [x.copy() for x in data_in_orig]
     data_in_copy = [x.copy() for x in data_in]
-    data_out, values_out = compute_stuff(data_in, date(2021, 1, 5), 30 * 5,
-                                         0.10, 0.10, 125, 1000)
+    data_out_actual, values_out_actual = compute_stuff(
+        data_in, date(2021, 1, 5), 30 * 5, 0.10, 0.10, 125, 1000)
     assert pfmt(data_in) == pfmt(data_in_copy)
-    assert pfmt(data_out) == pfmt(data_out_expected)
-    assert pfmt(values_out) == pfmt(values_out_expected)
+    assert pfmt(data_out_actual) == pfmt(data_out_expected)
+    assert pfmt(values_out_actual) == pfmt(values_out_expected)
 
     with pytest.raises(ValueError) as exc_info:
         compute_stuff([], date(2020, 1, 1), 365, 0, 0.10, 0, 1000)

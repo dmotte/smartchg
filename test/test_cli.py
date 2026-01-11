@@ -88,6 +88,17 @@ def test_save_data() -> None:
         '1.4242723254391365',
     )) + '\n'
 
+    # Test with numeric values as float
+    data = [{k: float(v) if isinstance(v, int) else v
+             for k, v in entry.items()}
+            for entry in data]
+
+    buf = io.StringIO()
+    save_data(data, buf)
+    buf.seek(0)
+
+    assert buf.read() == csv
+
     buf = io.StringIO()
     save_data(data, buf)
     buf.seek(0)
@@ -118,6 +129,34 @@ def test_save_data() -> None:
 
 
 def test_save_values() -> None:
+    values = {  # Test with whole-number float numeric values
+        'date_thresh': date(2020, 8, 8),
+
+        'offset_mean': 111.0,
+        'offset_stdev': 222.0,
+        'offset_upper': 333.0,
+        'offset_lower': 444.0,
+
+        'sugg_src': 555.0,
+        'sugg_dst': 666.0,
+    }
+
+    txt = textwrap.dedent('''\
+        date_thresh=2020-08-08
+        offset_mean=111
+        offset_stdev=222
+        offset_upper=333
+        offset_lower=444
+        sugg_src=555
+        sugg_dst=666
+    ''')
+
+    buf = io.StringIO()
+    save_values(values, buf)
+    buf.seek(0)
+
+    assert buf.read() == txt
+
     values = {
         'date_thresh': date(2020, 8, 8),
 

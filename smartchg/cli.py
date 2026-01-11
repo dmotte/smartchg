@@ -13,6 +13,14 @@ from datetime import timedelta
 from typing import Any, TextIO
 
 
+# Src: https://github.com/dmotte/misc/tree/main/snippets
+def normlz_num(x: int | float) -> int | float:
+    '''
+    Normalize number type by converting whole-number floats to int
+    '''
+    return int(x) if isinstance(x, float) and x.is_integer() else x
+
+
 def load_data(file: TextIO, krate: str = 'Open') -> Iterator[dict[str, Any]]:
     '''
     Loads data from a CSV file.
@@ -55,7 +63,8 @@ def save_data(data: list[dict], file: TextIO, fmt_days: str = '',
 
     print(','.join(fields.keys()), file=file)
     for x in data:
-        print(','.join(f(x[k]) for k, f in fields.items()), file=file)
+        print(','.join(f(normlz_num(x[k])) for k, f in fields.items()),
+              file=file)
 
 
 def save_values(data: dict, file: TextIO, fmt_rate: str = '',
@@ -80,7 +89,7 @@ def save_values(data: dict, file: TextIO, fmt_rate: str = '',
     }
 
     for k, f in fields.items():
-        print(f'{k}={f(data[k])}', file=file)
+        print(f'{k}={f(normlz_num(data[k]))}', file=file)
 
 
 def compute_stuff(data: list[dict], today: date, lookbehind: int,

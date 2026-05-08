@@ -26,8 +26,8 @@ cd example/
 We need a Python **virtual environment** ("venv") with some packages to do the demonstration:
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -r requirements.txt
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -r requirements.txt
 ```
 
 > **Note**: we refer to the **source asset** with the **generic ticker symbol** `SRC`, and to the **destination asset** with `DST`.
@@ -53,7 +53,7 @@ grep '^sugg_' values-SPX500.csv
 And finally display some nice **plots** using the [`plots.py`](example/plots.py) script (which uses the [_Plotly_](https://github.com/plotly/plotly.py) Python library):
 
 ```bash
-venv/bin/python3 plots.py -ros {smartchg,values}-SPX500.csv
+.venv/bin/python3 plots.py -ros {smartchg,values}-SPX500.csv
 ```
 
 For more details on how to use this command, you can also refer to its help message (`--help`).
@@ -114,8 +114,8 @@ $$ S = 500 \cdot (1 - (-1) \cdot 0.10) = 500 \cdot 1.1 = 550 $$
 If you want to contribute to this project, you can create a Python **virtual environment** ("venv") with the package in **editable** mode:
 
 ```bash
-python3 -mvenv venv
-venv/bin/python3 -mpip install -e .
+python3 -mvenv .venv
+.venv/bin/python3 -mpip install -e .
 ```
 
 This will link the package to the original location, so any changes to the code will reflect directly in your environment ([source](https://stackoverflow.com/a/35064498)).
@@ -123,6 +123,6 @@ This will link the package to the original location, so any changes to the code 
 If you want to run the tests:
 
 ```bash
-venv/bin/python3 -mpip install pytest
-venv/bin/python3 -mpytest test
+.venv/bin/python3 -mpip install pytest
+.venv/bin/python3 -mpytest test
 ```
